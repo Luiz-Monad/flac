@@ -17,7 +17,7 @@ option(BUILD_PROGRAMS "Build and install programs" ON)
 option(BUILD_EXAMPLES "Build and install examples" ON)
 option(BUILD_DOCS "Build and install doxygen documents" ON)
 option(WITH_STACK_PROTECTOR "Enable GNU GCC stack smash protection" ON)
-option(INSTALL_MANPAGES "Install MAN pages" ON)
+option(INSTALL_MANPAGES "Install MAN pages" OFF)
 option(INSTALL_CMAKE_CONFIG_MODULE "Install CMake package-config module" ON)
 option(WITH_OGG "ogg support (default: test for libogg)" ON)
 
