@@ -19,5 +19,5 @@ target_link_libraries(flacapp
     replaygain_synthesis
     utf8)
 
-install(TARGETS flacapp EXPORT targets
+install(TARGETS flacapp EXPORT FlacTargets
     RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")

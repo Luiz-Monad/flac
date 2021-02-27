@@ -37,17 +37,7 @@ endif()
 
 add_library(FLAC::FLAC++ ALIAS FLAC++)
 
-install(TARGETS FLAC++ EXPORT targets
+install(TARGETS FLAC++ EXPORT FlacTargets
     ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}/"
     LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/"
     RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}/")
-
-if(INSTALL_PKGCONFIG_MODULES)
-    set(prefix "${CMAKE_INSTALL_PREFIX}")
-    set(exec_prefix "${CMAKE_INSTALL_PREFIX}")
-    set(libdir "${CMAKE_INSTALL_FULL_LIBDIR}")
-    set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
-    configure_file(flac++.pc.in flac++.pc @ONLY)
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/flac++.pc"
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
-endif()

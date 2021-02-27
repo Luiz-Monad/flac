@@ -3,7 +3,7 @@
 include(CMakeFindDependencyMacro)
 find_dependency(Ogg)
 
-include("${CMAKE_CURRENT_LIST_DIR}/targets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/FlacTargets.cmake")
 
 if(TARGET FLAC::FLAC)
     set(FLAC_FLAC_FOUND 1)

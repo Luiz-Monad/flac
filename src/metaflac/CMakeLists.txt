@@ -13,5 +13,5 @@ add_executable(metaflac
     $<$<BOOL:${WIN32}>:../share/win_utf8_io/win_utf8_io.c>)
 target_link_libraries(metaflac FLAC getopt utf8)
 
-install(TARGETS metaflac EXPORT targets
+install(TARGETS metaflac EXPORT FlacTargets
     RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")

@@ -18,7 +18,6 @@ option(BUILD_EXAMPLES "Build and install examples" ON)
 option(BUILD_DOCS "Build and install doxygen documents" ON)
 option(WITH_STACK_PROTECTOR "Enable GNU GCC stack smash protection" ON)
 option(INSTALL_MANPAGES "Install MAN pages" ON)
-option(INSTALL_PKGCONFIG_MODULES "Install PkgConfig modules" ON)
 option(INSTALL_CMAKE_CONFIG_MODULE "Install CMake package-config module" ON)
 option(WITH_OGG "ogg support (default: test for libogg)" ON)
 
@@ -126,22 +125,27 @@ endif()
 configure_file(config.cmake.h.in config.h)
 
 if(INSTALL_CMAKE_CONFIG_MODULE)
+    set(CMAKE_INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/Flac)
     install(
-        EXPORT targets
-        DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake"
+        EXPORT FlacTargets
+        DESTINATION ${CMAKE_INSTALL_CONFIGDIR}
         NAMESPACE FLAC::)
 
-    configure_package_config_file(
-        flac-config.cmake.in flac-config.cmake
-        INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake")
-    write_basic_package_version_file(
-        flac-config-version.cmake COMPATIBILITY AnyNewerVersion)
+    include(CMakePackageConfigHelpers)
 
-    install(
-        FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/flac-config.cmake"
-            "${CMAKE_CURRENT_BINARY_DIR}/flac-config-version.cmake"
-        DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake")
+    configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/FlacConfig.cmake.in ${PROJECT_BINARY_DIR}/FlacConfig.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_CONFIGDIR}
+        PATH_VARS CMAKE_INSTALL_FULL_INCLUDEDIR
+    )
+
+    write_basic_package_version_file(${PROJECT_BINARY_DIR}/FlacConfigVersion.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion
+    )
+
+    install(FILES ${PROJECT_BINARY_DIR}/FlacConfig.cmake ${PROJECT_BINARY_DIR}/FlacConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_CONFIGDIR}
+    )
 endif()
 
 file(GLOB FLAC_HEADERS "include/FLAC/*.h")
